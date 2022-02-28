@@ -251,7 +251,7 @@ class ModelView(BaseModelView):
             query = self._search(query, search)
 
         # Get count
-        count = self.coll.find(query).count_documents() if not self.simple_list_pager else None
+        count = self.coll.count_documents(query) if not self.simple_list_pager else None
 
         # Sorting
         sort_by = None
