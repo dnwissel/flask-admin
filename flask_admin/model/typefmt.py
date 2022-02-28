@@ -68,7 +68,7 @@ def dict_formatter(view, value):
         :param value:
             Dict to convert to string
     """
-    return json.dumps(value, ensure_ascii=False)
+    return json.dumps(value, ensure_ascii=False, default=str)
 
 
 BASE_FORMATTERS = {
