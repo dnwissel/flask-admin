@@ -337,7 +337,7 @@ class ModelView(BaseModelView):
             self._on_model_change(form, model, False)
 
             pk = self.get_pk_value(model)
-            self.coll.update_one({'_id': pk}, model)
+            self.coll.replace_one({'_id': pk}, model)
         except Exception as ex:
             flash(gettext('Failed to update record. %(error)s', error=str(ex)),
                   'error')
