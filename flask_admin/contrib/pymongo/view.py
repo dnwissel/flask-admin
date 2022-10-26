@@ -312,7 +312,7 @@ class ModelView(BaseModelView):
         try:
             model = form.data
             self._on_model_change(form, model, True)
-            self.coll.insert(model)
+            self.coll.insert_one(model)
         except Exception as ex:
             flash(gettext('Failed to create record. %(error)s', error=str(ex)),
                   'error')
@@ -333,11 +333,11 @@ class ModelView(BaseModelView):
                 Model instance to update
         """
         try:
-            model.update(form.data)
+            model.update_one(form.data)
             self._on_model_change(form, model, False)
 
             pk = self.get_pk_value(model)
-            self.coll.update({'_id': pk}, model)
+            self.coll.update_one({'_id': pk}, model)
         except Exception as ex:
             flash(gettext('Failed to update record. %(error)s', error=str(ex)),
                   'error')
@@ -362,7 +362,7 @@ class ModelView(BaseModelView):
                 raise ValueError('Document does not have _id')
 
             self.on_model_delete(model)
-            self.coll.remove({'_id': pk})
+            self.coll.remove_one({'_id': pk})
         except Exception as ex:
             flash(gettext('Failed to delete record. %(error)s', error=str(ex)),
                   'error')
