@@ -333,7 +333,7 @@ class ModelView(BaseModelView):
                 Model instance to update
         """
         try:
-            model.update_one(form.data)
+            model.update(form.data)
             self._on_model_change(form, model, False)
 
             pk = self.get_pk_value(model)
@@ -362,7 +362,7 @@ class ModelView(BaseModelView):
                 raise ValueError('Document does not have _id')
 
             self.on_model_delete(model)
-            self.coll.remove_one({'_id': pk})
+            self.coll.delete_one({'_id': pk})
         except Exception as ex:
             flash(gettext('Failed to delete record. %(error)s', error=str(ex)),
                   'error')
